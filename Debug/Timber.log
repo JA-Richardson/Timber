@@ -1,2 +1,4 @@
 ﻿  Timber.cpp
+C:\Users\arich\Documents\VS Projects\Timber\Timber.cpp(57,23): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\arich\Documents\VS Projects\Timber\Timber.cpp(59,29): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
   Timber.vcxproj -> C:\Users\arich\Documents\VS Projects\Timber\Debug\Timber.exe
