@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <sstream>
 
 int main()
 {
@@ -44,6 +45,23 @@ int main()
     float cloud2Speed = 0.0f;
     float cloud3Speed = 0.0f;
     sf::Time deltaTime = clock.restart();
+
+    bool gamePaused = true;
+    int score = 0;
+    sf::Font font;
+    font.loadFromFile("fonts\KOMIKAP_.ttf");
+    sf::Text startMessage;
+    startMessage.setFont(font);
+    startMessage.setString("Press Enter to begin");
+    startMessage.setCharacterSize(75);
+    startMessage.setFillColor(sf::Color::White);
+
+    sf::Text scoreText;   
+    scoreText.setFont(font);
+    scoreText.setString("Score = 0");
+    scoreText.setCharacterSize(100);
+    scoreText.setFillColor(sf::Color::White);
+
     while (window.isOpen())
     {
         //input
@@ -51,23 +69,47 @@ int main()
         {
             window.close();
         }
-
-        if (!isBeeMoving)
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
         {
-            srand(time(NULL));
-            beeSpeed = (rand() & 200) + 200;
-            float beeHeight = (rand() % 1000) + 500;
-            beeSprite.setPosition(2000, beeHeight);
-            isBeeMoving = true;
+            gamePaused = false;
         }
-        else
+        //update
+        if (!gamePaused)
         {
-            beeSprite.setPosition(beeSprite.getPosition().x - (beeSpeed * deltaTime.asSeconds()), beeSprite.getPosition().y);
-            if (beeSprite.getPosition().x < -100)
+            if (!isBeeMoving)
             {
-                isBeeMoving = false;
+                srand(time(NULL));
+                beeSpeed = (rand() & 200) + 200;
+                float beeHeight = (rand() % 1000) + 500;
+                beeSprite.setPosition(2000, beeHeight);
+                isBeeMoving = true;
+            }
+            else
+            {
+                beeSprite.setPosition(beeSprite.getPosition().x - (beeSpeed * deltaTime.asSeconds()), beeSprite.getPosition().y);
+                if (beeSprite.getPosition().x < -100)
+                {
+                    isBeeMoving = false;
+                }
+            }
+            if (!isCloud1Moving)
+            {
+                srand(time(NULL));
+                cloud1Speed = (rand() % 200) + 200;
+                float cloud1Height = (rand() % 150);
+                cloudSprite1.setPosition(-200, cloud1Height);
+                isCloud1Moving = true;
+            }
+            else
+            {
+                cloudSprite1.setPosition(cloudSprite1.getPosition().x + (cloud1Speed * deltaTime.asSeconds()), cloudSprite1.getPosition().y);
+                if (cloudSprite1.getPosition().x > 1920)
+                {
+                    isCloud1Moving = false;
+                }
             }
         }
+        
 
         //draw
         window.clear();
