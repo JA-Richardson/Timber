@@ -5,6 +5,7 @@ int main()
 {
 
     sf::Clock clock;
+    
     sf::RenderWindow window(sf::VideoMode(1920, 1080), "SFML works!");
     //Background
     sf::Texture bgTex;
@@ -44,23 +45,41 @@ int main()
     float cloud1Speed = 0.0f;
     float cloud2Speed = 0.0f;
     float cloud3Speed = 0.0f;
-    sf::Time deltaTime = clock.restart();
+    
 
     bool gamePaused = true;
     int score = 0;
+    //Font setup
     sf::Font font;
-    font.loadFromFile("fonts\KOMIKAP_.ttf");
-    sf::Text startMessage;
-    startMessage.setFont(font);
-    startMessage.setString("Press Enter to begin");
-    startMessage.setCharacterSize(75);
-    startMessage.setFillColor(sf::Color::White);
-
+    font.loadFromFile("Font/KOMIKAP_.ttf");
+    //Message when player starts the game
+    sf::Text displayText;
+    displayText.setFont(font);
+    displayText.setString("Press Enter to begin");
+    displayText.setCharacterSize(75);
+    displayText.setFillColor(sf::Color::White);
+    sf::FloatRect textRact = displayText.getLocalBounds();
+    displayText.setOrigin(textRact.left + textRact.width / 2.f, textRact.top + textRact.height / 2.f);
+    displayText.setPosition(1920 / 2.f, 1080 / 2.f);
+    //Players score
     sf::Text scoreText;   
     scoreText.setFont(font);
     scoreText.setString("Score = 0");
     scoreText.setCharacterSize(100);
     scoreText.setFillColor(sf::Color::White);
+    scoreText.setPosition(20, 20);
+    //Time bar
+
+    sf::RectangleShape timeBar;
+    float timeBarStartWidth = 400;
+    float timeBarHeight = 80;
+    timeBar.setSize(sf::Vector2f(timeBarStartWidth, timeBarHeight));
+    timeBar.setFillColor(sf::Color::Red);
+    timeBar.setPosition((1920 / 2) - timeBarStartWidth / 2, 980);
+    sf::Time gameTime;
+    float timeLeft = 6.f;
+    float timeBarWidthChange = timeBarStartWidth / timeLeft;
+   
 
     while (window.isOpen())
     {
@@ -72,14 +91,31 @@ int main()
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
         {
             gamePaused = false;
+            score = 0;
+            timeLeft = 6.f;
+            
         }
         //update
+        sf::Time deltaTime = clock.restart();
         if (!gamePaused)
         {
+            timeLeft -= deltaTime.asSeconds();
+            timeBar.setSize(sf::Vector2f(timeBarWidthChange * timeLeft, timeBarHeight));
+
+            if (timeLeft <= 0.f)
+            {
+                gamePaused = true;
+                displayText.setString("Time up!");
+                sf::FloatRect textRact = displayText.getLocalBounds();
+                displayText.setOrigin(textRact.left + textRact.width / 2.f, textRact.top + textRact.height / 2.f);
+                displayText.setPosition(1920 / 2.f, 1080 / 2.f);
+
+            }
+
             if (!isBeeMoving)
             {
                 srand(time(NULL));
-                beeSpeed = (rand() & 200) + 200;
+                beeSpeed = (rand() & 200) + 20;
                 float beeHeight = (rand() % 1000) + 500;
                 beeSprite.setPosition(2000, beeHeight);
                 isBeeMoving = true;
@@ -108,6 +144,9 @@ int main()
                     isCloud1Moving = false;
                 }
             }
+            std::stringstream ss;
+            ss << "Score = " << score;
+            scoreText.setString(ss.str());
         }
         
 
@@ -119,6 +158,12 @@ int main()
         window.draw(cloudSprite1);
         window.draw(cloudSprite2);
         window.draw(cloudSprite3);
+        window.draw(scoreText);
+        window.draw(timeBar);
+        if (gamePaused)
+        {
+            window.draw(displayText);
+        }
         window.display();
     }
 

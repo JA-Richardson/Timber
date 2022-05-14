@@ -1,8 +1,7 @@
 ﻿  Timber.cpp
-C:\Users\arich\Documents\VS Projects\Timber\Timber.cpp(55,23): warning C4129: 'K': unrecognized character escape sequence
-C:\Users\arich\Documents\VS Projects\Timber\Timber.cpp(73,27): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\arich\Documents\VS Projects\Timber\Timber.cpp(75,33): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\arich\Documents\VS Projects\Timber\Timber.cpp(89,27): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\arich\Documents\VS Projects\Timber\Timber.cpp(90,46): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\arich\Documents\VS Projects\Timber\Timber.cpp(91,36): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\arich\Documents\VS Projects\Timber\Timber.cpp(117,27): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\arich\Documents\VS Projects\Timber\Timber.cpp(119,33): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\arich\Documents\VS Projects\Timber\Timber.cpp(133,27): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\arich\Documents\VS Projects\Timber\Timber.cpp(134,46): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\arich\Documents\VS Projects\Timber\Timber.cpp(135,36): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
   Timber.vcxproj -> C:\Users\arich\Documents\VS Projects\Timber\Debug\Timber.exe
