@@ -1,6 +1,14 @@
 #include <SFML/Graphics.hpp>
 #include <sstream>
 
+void branchUpdate(int seed);
+
+const int NUM_BRANCHES = 6;
+sf::Sprite branches[NUM_BRANCHES];
+
+enum class side {LEFT, RIGHT, NONE};
+side branchPoisition[NUM_BRANCHES];
+
 int main()
 {
 
@@ -45,6 +53,16 @@ int main()
     float cloud1Speed = 0.0f;
     float cloud2Speed = 0.0f;
     float cloud3Speed = 0.0f;
+    //Branches
+    sf::Texture branchTex;
+    branchTex.loadFromFile("Graphics/branch.png");
+    //changes clouds to this
+    for (int i = 0; i < NUM_BRANCHES; ++i)
+    {
+        branches[i].setTexture(branchTex);
+        branches[i].setPosition(-2000, -2000);
+        branches[i].setOrigin(220, 20);
+    }
     
 
     bool gamePaused = true;
@@ -147,6 +165,25 @@ int main()
             std::stringstream ss;
             ss << "Score = " << score;
             scoreText.setString(ss.str());
+
+            for (int i = 0; i < NUM_BRANCHES; ++i)
+            {
+                float height = i * 150;
+                if (branchPoisition[i] == side::LEFT)
+                {
+                    branches[i].setPosition(610, height);
+                    branches[i].setRotation(180);
+                }
+                else if (branchPoisition[i] == side::RIGHT)
+                {
+                    branches[i].setPosition(1330, height);
+                    branches[i].setRotation(0);
+                }
+                else
+                {
+                    branches[i].setPosition(3000, height);
+                }
+            }
         }
         
 
@@ -158,6 +195,10 @@ int main()
         window.draw(cloudSprite1);
         window.draw(cloudSprite2);
         window.draw(cloudSprite3);
+        for (int i = 0; i < NUM_BRANCHES; ++i)
+        {
+            window.draw(branches[i]);
+        }
         window.draw(scoreText);
         window.draw(timeBar);
         if (gamePaused)

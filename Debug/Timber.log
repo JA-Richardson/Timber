@@ -1,7 +1,8 @@
 ﻿  Timber.cpp
-C:\Users\arich\Documents\VS Projects\Timber\Timber.cpp(117,27): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\arich\Documents\VS Projects\Timber\Timber.cpp(119,33): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\arich\Documents\VS Projects\Timber\Timber.cpp(133,27): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\arich\Documents\VS Projects\Timber\Timber.cpp(134,46): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\arich\Documents\VS Projects\Timber\Timber.cpp(135,36): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\arich\Documents\VS Projects\Timber\Timber.cpp(135,27): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\arich\Documents\VS Projects\Timber\Timber.cpp(137,33): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\arich\Documents\VS Projects\Timber\Timber.cpp(151,27): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\arich\Documents\VS Projects\Timber\Timber.cpp(152,46): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\arich\Documents\VS Projects\Timber\Timber.cpp(153,36): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\arich\Documents\VS Projects\Timber\Timber.cpp(171,30): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
   Timber.vcxproj -> C:\Users\arich\Documents\VS Projects\Timber\Debug\Timber.exe
