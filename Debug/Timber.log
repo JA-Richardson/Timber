@@ -1,9 +1,1 @@
-﻿  Timber.cpp
-C:\Users\arich\Documents\VS Projects\Timber\Timber.cpp(112,25): warning C4129: 'l': unrecognized character escape sequence
-C:\Users\arich\Documents\VS Projects\Timber\Timber.cpp(186,27): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\arich\Documents\VS Projects\Timber\Timber.cpp(188,33): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\arich\Documents\VS Projects\Timber\Timber.cpp(202,27): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\arich\Documents\VS Projects\Timber\Timber.cpp(203,46): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\arich\Documents\VS Projects\Timber\Timber.cpp(204,36): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\arich\Documents\VS Projects\Timber\Timber.cpp(222,30): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-  Timber.vcxproj -> C:\Users\arich\Documents\VS Projects\Timber\Debug\Timber.exe
+﻿  Timber.vcxproj -> C:\Users\arich\Documents\VS Projects\Timber\Debug\Timber.exe

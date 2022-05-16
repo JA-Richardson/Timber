@@ -1,0 +1,14 @@
+﻿  Timber.cpp
+C:\Users\arich\Documents\VS Projects\Timber\Timber.cpp(206,41): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\arich\Documents\VS Projects\Timber\Timber.cpp(222,41): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\arich\Documents\VS Projects\Timber\Timber.cpp(254,27): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\arich\Documents\VS Projects\Timber\Timber.cpp(256,33): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\arich\Documents\VS Projects\Timber\Timber.cpp(270,27): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\arich\Documents\VS Projects\Timber\Timber.cpp(271,46): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\arich\Documents\VS Projects\Timber\Timber.cpp(272,36): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\arich\Documents\VS Projects\Timber\Timber.cpp(290,30): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+  All 129 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  Timber.vcxproj -> C:\Users\arich\Documents\VS Projects\Timber\Release\Timber.exe

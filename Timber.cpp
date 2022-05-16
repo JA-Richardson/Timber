@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <sstream>
 #include <iostream>
 #include "test.h"
@@ -109,15 +110,30 @@ int main()
     const float AXE_POSITION_RIGHT = 1075;
     //Log
     sf::Texture logTex;
-    logTex.loadFromFile("Graphics\log.png");
+    logTex.loadFromFile("Graphics/log.png");
     sf::Sprite logSprite;
     logSprite.setTexture(logTex);
     logSprite.setPosition(810, 720);
-
     bool logActive = false;
     float logSpeedX = 1000;
     float logSpeedY = -1500;
+    //Sound
+    sf::SoundBuffer chopBuffer;
+    chopBuffer.loadFromFile("Audio/chop.wav");
+    sf::Sound chop;
+    chop.setBuffer(chopBuffer);
 
+    sf::SoundBuffer deathBuffer;
+    deathBuffer.loadFromFile("Audio/death.wav");
+    sf::Sound death;
+    death.setBuffer(deathBuffer);
+
+    sf::SoundBuffer ootBuffer;
+    ootBuffer.loadFromFile("Audio/out_of_time.wav");
+    sf::Sound outOfTime;
+    outOfTime.setBuffer(ootBuffer);
+
+    bool acceptInput = false;
     bool gamePaused = true;
     int score = 0;
     //Font setup
@@ -129,8 +145,8 @@ int main()
     displayText.setString("Press Enter to begin");
     displayText.setCharacterSize(75);
     displayText.setFillColor(sf::Color::White);
-    sf::FloatRect textRact = displayText.getLocalBounds();
-    displayText.setOrigin(textRact.left + textRact.width / 2.f, textRact.top + textRact.height / 2.f);
+    sf::FloatRect textRect = displayText.getLocalBounds();
+    displayText.setOrigin(textRect.left + textRect.width / 2.f, textRect.top + textRect.height / 2.f);
     displayText.setPosition(1920 / 2.f, 1080 / 2.f);
     //Players score
     sf::Text scoreText;   
@@ -152,6 +168,16 @@ int main()
 
     while (window.isOpen())
     {
+
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::KeyReleased && !gamePaused)
+            {
+                acceptInput = true;
+                axeSprite.setPosition(2000, axeSprite.getPosition().y);
+            }
+        }
         //input
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
         {
@@ -162,7 +188,48 @@ int main()
             gamePaused = false;
             score = 0;
             timeLeft = 6.f;
+            for (int i = 1; i < NUM_BRANCHES; ++i)
+            {
+                branchPoisition[i] = side::NONE;
+            }
+            graveSprite.setPosition(675, 2000);
+            playerSprite.setPosition(580, 720);
+            acceptInput = true;
             
+        }
+        if (acceptInput)
+        {
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+            {
+                playerSide = side::RIGHT;
+                score++;
+                timeLeft += (2 / score) + .15;
+                axeSprite.setPosition(AXE_POSITION_RIGHT, axeSprite.getPosition().y);
+                playerSprite.setPosition(1200, 720);
+                branchUpdate(score);
+                logSprite.setPosition(810, 720);
+                logSpeedX = -5000;
+                logActive = true;
+
+                acceptInput = false;
+                chop.play();
+            }
+
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+            {
+                playerSide = side::LEFT;
+                score++;
+                timeLeft += (2 / score) + .15;
+                axeSprite.setPosition(AXE_POSITION_LEFT, axeSprite.getPosition().y);
+                playerSprite.setPosition(580, 720);
+                branchUpdate(score);
+                logSprite.setPosition(810, 720);
+                logSpeedX = 5000;
+                logActive = true;
+
+                acceptInput = false;
+                chop.play();
+            }
         }
         //update
         sf::Time deltaTime = clock.restart();
@@ -178,6 +245,7 @@ int main()
                 sf::FloatRect textRact = displayText.getLocalBounds();
                 displayText.setOrigin(textRact.left + textRact.width / 2.f, textRact.top + textRact.height / 2.f);
                 displayText.setPosition(1920 / 2.f, 1080 / 2.f);
+                outOfTime.play();
 
             }
 
@@ -235,6 +303,27 @@ int main()
                     branches[i].setPosition(3000, height);
                 }
             }
+            if (logActive)
+            {
+                logSprite.setPosition(logSprite.getPosition().x + (logSpeedX * deltaTime.asSeconds()), logSprite.getPosition().y + (logSpeedY * deltaTime.asSeconds()));
+                if (logSprite.getPosition().x < -100 || logSprite.getPosition().x > 2000)
+                {
+                    logActive = false;
+                    logSprite.setPosition(810, 720);
+                }
+
+            }
+            if (branchPoisition[5] == playerSide)
+            {
+                gamePaused = true;
+                acceptInput = false;
+                graveSprite.setPosition(525, 760);
+                playerSprite.setPosition(2000, 660);
+                displayText.setString("Squashed!");
+                displayText.setOrigin(textRect.left + textRect.width / 2.f, textRect.top + textRect.height / 2.f);
+                displayText.setPosition(1920 / 2.f, 1080 / 2.f);
+                death.play();
+            }
         }
         
 
@@ -256,6 +345,7 @@ int main()
         }
         window.draw(scoreText);
         window.draw(timeBar);
+        window.draw(logSprite);
         
         if (gamePaused)
         {
