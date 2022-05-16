@@ -1,5 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <sstream>
+#include <iostream>
+#include "test.h"
 
 void branchUpdate(int seed);
 
@@ -9,11 +11,32 @@ sf::Sprite branches[NUM_BRANCHES];
 enum class side {LEFT, RIGHT, NONE};
 side branchPoisition[NUM_BRANCHES];
 
+void branchUpdate(int seed)
+{
+    for (int j = NUM_BRANCHES - 1; j > 0; --j)
+    {
+        branchPoisition[j] = branchPoisition[j - 1];
+    }
+    srand((int)time(0) + seed);
+    int r = (rand() % 5);
+    switch (r)
+    {
+    case 0:
+        branchPoisition[0] = side::LEFT;
+        break;
+    case 1:
+        branchPoisition[0] = side::RIGHT;
+        break;
+    default:
+        branchPoisition[0] = side::NONE;
+        break;
+
+    }
+}
+
 int main()
 {
-
     sf::Clock clock;
-    
     sf::RenderWindow window(sf::VideoMode(1920, 1080), "SFML works!");
     //Background
     sf::Texture bgTex;
@@ -63,7 +86,37 @@ int main()
         branches[i].setPosition(-2000, -2000);
         branches[i].setOrigin(220, 20);
     }
-    
+    //Player
+    sf::Texture playerTex;
+    playerTex.loadFromFile("Graphics/player.png");
+    sf::Sprite playerSprite;
+    playerSprite.setTexture(playerTex);
+    playerSprite.setPosition(580, 720);
+    side playerSide = side::LEFT;
+    //Gravestone
+    sf::Texture graveTex;
+    graveTex.loadFromFile("Graphics/rip.png");
+    sf::Sprite graveSprite;
+    graveSprite.setTexture(graveTex);
+    graveSprite.setPosition(600, 860);
+    //Axe
+    sf::Texture axeTex;
+    axeTex.loadFromFile("Graphics/axe.png");
+    sf::Sprite axeSprite;
+    axeSprite.setTexture(axeTex);
+    axeSprite.setPosition(700, 830);
+    const float AXE_POSITION_LEFT = 700;
+    const float AXE_POSITION_RIGHT = 1075;
+    //Log
+    sf::Texture logTex;
+    logTex.loadFromFile("Graphics\log.png");
+    sf::Sprite logSprite;
+    logSprite.setTexture(logTex);
+    logSprite.setPosition(810, 720);
+
+    bool logActive = false;
+    float logSpeedX = 1000;
+    float logSpeedY = -1500;
 
     bool gamePaused = true;
     int score = 0;
@@ -87,7 +140,6 @@ int main()
     scoreText.setFillColor(sf::Color::White);
     scoreText.setPosition(20, 20);
     //Time bar
-
     sf::RectangleShape timeBar;
     float timeBarStartWidth = 400;
     float timeBarHeight = 80;
@@ -97,7 +149,6 @@ int main()
     sf::Time gameTime;
     float timeLeft = 6.f;
     float timeBarWidthChange = timeBarStartWidth / timeLeft;
-   
 
     while (window.isOpen())
     {
@@ -191,6 +242,10 @@ int main()
         window.clear();
         window.draw(bgSprite);
         window.draw(treeSprite);
+        window.draw(playerSprite);
+        window.draw(axeSprite);
+        window.draw(logSprite);
+        window.draw(graveSprite);
         window.draw(beeSprite);
         window.draw(cloudSprite1);
         window.draw(cloudSprite2);
@@ -201,6 +256,7 @@ int main()
         }
         window.draw(scoreText);
         window.draw(timeBar);
+        
         if (gamePaused)
         {
             window.draw(displayText);
